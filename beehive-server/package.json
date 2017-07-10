@@ -1,0 +1,19 @@
+{
+  "name": "beehive-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "jquery": "^3.2.1",
+    "prompt": "^1.0.0",
+    "serialport": "^4.0.7",
+    "socket.io": "^2.0.3"
+  }
+}

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+    <head>
+      <title>Home433</title>
+
+      <!-- tutorila React: https://www.kirupa.com/react/building_your_first_react_app.htm -->
+      <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+      <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+      <!-- babel compiler -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<!-- switch button  -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.min.js"></script>
+<script src="https://unpkg.com/classnames/index.js"></script>
+<script src="https://unpkg.com/react-switch-button/dist/react-switch-button.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/react-switch-button/dist/react-switch-button.css">
+      <style>
+        #bee {
+          padding: 50px;
+          background-color: #FFF;
+        }
+
+      </style>
+    </head>
+    <body>
+
+        <div id="name">Home433Automation</div>
+        <!-- <form id="form" id="chat_form">
+             Node:
+            <input id="node" type="text">
+            Operation:
+            <input id="op" type="text">
+            Data:
+            <input id="data" type="text">
+            <input type="submit" value="Send">
+        </form> -->
+
+         <div id="bees"> </div>
+
+         <script type="text/babel">
+
+         var BroadcastBees = React.createClass({
+
+           render: function(){
+             var broadcastStyle = {
+              padding: 10,
+              margin: 10,
+              backgroundColor: "#ffde00",
+              color: "#333",
+              display: "inline-block",
+              fontFamily: "monospace",
+              fontSize: "32",
+              textAlign: "center"
+            };
+             return (
+               <div style={broadcastStyle}>
+                <button type="button" onClick={function(){socket.emit('command', JSON.stringify({"dst": 255, "op":2, "data":1})); }} >Accendi Tutte!</button>
+                <button type="button" onClick={function(){socket.emit('command', JSON.stringify({"dst": 255, "op":2, "data":0})); }} >Spegni Tutte!</button>
+                </div>
+             )
+           }
+         })
+            var Bee = React.createClass({
+
+              render: function() {
+                var beeStyle = {
+                 padding: 10,
+                 margin: 10,
+                 backgroundColor: "#ffde00",
+                 color: "#333",
+                 display: "inline-block",
+                 fontFamily: "monospace",
+                 fontSize: "32",
+                 textAlign: "center"
+               };
+                return (
+                  <div style={beeStyle}> Bee {this.props.beeAddress}!
+                  <p>Control a led</p>
+                  {this.props.children}
+                  </div>
+                );
+              }
+
+            })
+            // onClick={switchOnLed}
+            // switchOnLed: function(){
+            //   console.log("Send to bee switch on")
+            //
+            // };
+
+            var ButtonsLed = React.createClass({
+              // onClick:  (event) => {
+              //   const {id} = event.target;
+              //   console.log(id);
+              // },
+
+              render: function(){
+                return (
+                  <div>
+                    <button type="button" onClick={function(){socket.emit('command', JSON.stringify({"dst": 2, "op":2, "data":1})); }} >Accendi!</button>
+
+                    <button type="button" onClick={function(){socket.emit('command', JSON.stringify({"dst": 2, "op":2, "data":0})); }} >Spegni!</button>
+                   </div>
+                );
+              }
+            });
+
+            ReactDOM.render(
+              <div>
+                <Bee beeAddress="1"> <ButtonsLed beeDst="1"/> </Bee>
+                <Bee beeAddress="2">  <ButtonsLed beeDst="2"/> </Bee>
+                <BroadcastBees/>
+              </div>,
+              document.querySelector("#bees")
+            );
+
+          </script>
+
+        <!-- <script src="/jquery/dist/jquery.js"></script> -->
+        <script src="/socket.io/socket.io.js"></script>
+
+        <script src="js/clients-sockets.js"></script>
+
+
+    </body>
+
+</html>
