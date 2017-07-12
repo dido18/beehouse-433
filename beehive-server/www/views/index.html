@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-      <title>Home433</title>
+      <title>BeeHome-433</title>
 
       <!-- tutorila React: https://www.kirupa.com/react/building_your_first_react_app.htm -->
       <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
@@ -28,16 +28,7 @@
     </head>
     <body>
 
-        <div id="name">Home433Automation</div>
-        <!-- <form id="form" id="chat_form">
-             Node:
-            <input id="node" type="text">
-            Operation:
-            <input id="op" type="text">
-            Data:
-            <input id="data" type="text">
-            <input type="submit" value="Send">
-        </form> -->
+        <h1 id="name">BeeHome-433</h1>
 
          <div id="bees"> </div>
 
@@ -72,6 +63,9 @@
                  padding: 10,
                  margin: 10,
                  backgroundColor: "#ffde00",
+                 borderRadius: "30",
+                 //backgroundImage: "url('BeeHive2.png')",
+                 //backgroundSize:"80",
                  color: "#333",
                  display: "inline-block",
                  fontFamily: "monospace",
@@ -101,10 +95,32 @@
                },
 
               render: function(){
+                var ButtonGreen= {
+                    backgroundColor: "#4CAF50",
+                    borderRadius: "30",
+                    border: "none",
+                    color: "white",
+                    padding: "15",
+                    textAlign: "center",
+                    textDecoration: "none",
+                    display: "inline-block",
+                    fontSize: "16"
+                };
+                var ButtonRed= {
+                    backgroundColor: "#f44336",
+                    border: "none",
+                    borderRadius: "30",
+                    color: "white",
+                    padding: "15",
+                    textAlign: "center",
+                    textDecoration: "none",
+                    display: "inline-block",
+                    fontSize: "16"
+                };
                 return (
                   <div>
-                    <button type="button" onClick={()=>{this.handleClick(this.props.beeDst, 1)}} >Accendi!</button>
-                    <button type="button" onClick={()=>{this.handleClick(this.props.beeDst, 0)}} >Spegni!</button>
+                    <button style={ButtonGreen} type="button" onClick={()=>{this.handleClick(this.props.beeDst, 1)}} >Accendi!</button>
+                    <button style={ButtonRed} type="button" onClick={()=>{this.handleClick(this.props.beeDst, 0)}} >Spegni!</button>
                    </div>
                 );
               }
