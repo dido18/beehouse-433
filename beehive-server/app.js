@@ -75,7 +75,7 @@ async.series({
        serial.on('data', function(data){
          try{
            console.log( JSON.parse(data)); // returning JSON parsed
-           io.emit('beehive', data);
+           io.emit('beemsg', data);
          }catch(e){
            console.log('Error parsing this JSON: ', data);
          }

@@ -4,12 +4,10 @@ var socket = io.connect('http://127.0.0.1:8080', {//'//' + location.host, {
   'max reconnection attempts': 300
 });
 
-  $("#messages").text("Ciao");
-
-socket.on('beehive', function(data){
-  console.log(data);
-  $("#messages").text(JSON.stringify(data));
-});
+// socket.on('beemsg', function(data){
+//   console.log(data);
+//
+// });
 
 
 // $('form').submit(function(e){

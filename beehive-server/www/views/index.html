@@ -43,28 +43,29 @@
 
          <script type="text/babel">
 
-         var BroadcastBees = React.createClass({
-
-           render: function(){
-             var broadcastStyle = {
-              padding: 10,
-              margin: 10,
-              backgroundColor: "#ffde00",
-              color: "#333",
-              display: "inline-block",
-              fontFamily: "monospace",
-              fontSize: "32",
-              textAlign: "center"
-            };
-             return (
-               <div style={broadcastStyle}>
-                <button type="button" onClick={function(){socket.emit('command', JSON.stringify({"dst": 255, "op":2, "data":1})); }} >Accendi Tutte!</button>
-                <button type="button" onClick={function(){socket.emit('command', JSON.stringify({"dst": 255, "op":2, "data":0})); }} >Spegni Tutte!</button>
-                </div>
-             )
-           }
-         })
             var Bee = React.createClass({
+              getInitialState: function() {
+                     return {value: ''};
+              },
+
+              componentDidMount: function() {
+                        socket.on('beemsg', this._messageRecieve);
+                        // socket.on('send:message', this._messageRecieve);
+                        // socket.on('user:join', this._userJoined);
+                        // socket.on('user:left', this._userLeft);
+                        // socket.on('change:name', this._userChangedName);
+              },
+              _messageRecieve: function(message) {
+
+                  var msg = JSON.parse(message);
+                  // console.log(this.props.beeAddress);
+                  // console.log(msg.src);
+                  if(msg.src == this.props.beeAddress){
+                    this.setState({ value: msg.data });
+                  }
+                  // messages.push(message);
+                  // this.setState({messages});
+              },
 
               render: function() {
                 var beeStyle = {
@@ -81,29 +82,29 @@
                   <div style={beeStyle}> Bee {this.props.beeAddress}!
                   <p>Control a led</p>
                   {this.props.children}
+
+                    <p>value:
+                    {this.state.value}
+                    </p>
                   </div>
                 );
               }
 
             })
-            // onClick={switchOnLed}
-            // switchOnLed: function(){
-            //   console.log("Send to bee switch on")
-            //
-            // };
 
             var ButtonsLed = React.createClass({
-              // onClick:  (event) => {
-              //   const {id} = event.target;
-              //   console.log(id);
-              // },
+
+              handleClick: function (dst,data) {
+                var msg = {"dst": dst, "op":2, "data":data};
+                 console.log(JSON.stringify(msg)); // React Component instance
+                 socket.emit('command', JSON.stringify(msg));
+               },
 
               render: function(){
                 return (
                   <div>
-                    <button type="button" onClick={function(){socket.emit('command', JSON.stringify({"dst": 2, "op":2, "data":1})); }} >Accendi!</button>
-
-                    <button type="button" onClick={function(){socket.emit('command', JSON.stringify({"dst": 2, "op":2, "data":0})); }} >Spegni!</button>
+                    <button type="button" onClick={()=>{this.handleClick(this.props.beeDst, 1)}} >Accendi!</button>
+                    <button type="button" onClick={()=>{this.handleClick(this.props.beeDst, 0)}} >Spegni!</button>
                    </div>
                 );
               }
@@ -113,7 +114,7 @@
               <div>
                 <Bee beeAddress="1"> <ButtonsLed beeDst="1"/> </Bee>
                 <Bee beeAddress="2">  <ButtonsLed beeDst="2"/> </Bee>
-                <BroadcastBees/>
+                <Bee beeAddress="Broadcast"> <ButtonsLed beeDst="255"/> </Bee>
               </div>,
               document.querySelector("#bees")
             );
