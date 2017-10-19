@@ -5,38 +5,38 @@ var SerialPort = require('serialport');
 var async = require('async');
 
 var serial;
-var serial = new SerialPort("/dev/ttyUSB0", {
-    parser: SerialPort.parsers.readline('\n'),
-    baudRate: 9600,
-    autoOpen: false});
+// var serial = new SerialPort("/dev/ttyUSB0", {
+//     parser: SerialPort.parsers.readline('\n'),
+//     baudRate: 9600,
+//     autoOpen: false});
 async.series({
-    //   get_serial: function(callback){
-    //     SerialPort.list(function (err, ports) {
-    //           console.log('Selectable serial ports:');
-    //           var k = 1;
-    //           ports.forEach(function(port) {
-    //             console.log('('+k+') '+port.comName); k++;
-    //           });
-    //           prompt.start();
-     //
-    //           prompt.get({properties: {port: {required: true, type: 'number', conform: function(value){
-    //                 if (value > 0 && value <= ports.length) return true;
-    //                 else return false;
-    //             }}}}, function (err, result) {
-    //                 if (err) return; //cb(null);
-    //                 choosen_port=  ports[result.port-1].comName;
-    //                 console.log('Choosen port:', ports[result.port-1].comName);
-    //                 //port =  choosen_port;
-    //                 serial = new SerialPort(choosen_port, {
-    //                     parser: SerialPort.parsers.readline('\n'),
-    //                     baudRate: 9600,
-    //                     autoOpen: false // autoOpen flag set to false, manually need to open the port
-    //                 });
-    //                 callback(null, 1);
-    //               });
-    //     });
-    //    //callback(null, 1);
-    //  },
+      get_serial: function(callback){
+        SerialPort.list(function (err, ports) {
+              console.log('Selectable serial ports:');
+              var k = 1;
+              ports.forEach(function(port) {
+                console.log('('+k+') '+port.comName); k++;
+              });
+              prompt.start();
+
+              prompt.get({properties: {port: {required: true, type: 'number', conform: function(value){
+                    if (value > 0 && value <= ports.length) return true;
+                    else return false;
+                }}}}, function (err, result) {
+                    if (err) return; //cb(null);
+                    choosen_port=  ports[result.port-1].comName;
+                    console.log('Choosen port:', ports[result.port-1].comName);
+                    //port =  choosen_port;
+                    serial = new SerialPort(choosen_port, {
+                        parser: SerialPort.parsers.readline('\n'),
+                        baudRate: 9600,
+                        autoOpen: false // autoOpen flag set to false, manually need to open the port
+                    });
+                    callback(null, 1);
+                  });
+        });
+       //callback(null, 1);
+     },
      init_rf: function(callback) {
             // Listen on Arduino Serial Port or RF433Mhz chip if on RPi platform.
             serial.open(function (error) {
