@@ -1,8 +1,12 @@
 # beehouse-433
 
-``` Smart house based on 433Mhz band ```
+``` 
+Smart house based on 433Mhz band
+```
 
 Davide Neri: davide.neri@di.unipi.it
+
+Video use case: https://www.youtube.com/watch?v=yvfxI-R9Ju4 
 
 ## Architecture
 The architecture has a *star* topology composed by:
