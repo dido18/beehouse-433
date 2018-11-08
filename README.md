@@ -8,7 +8,7 @@ Davide Neri: davide.neri@di.unipi.it
 
 **Video use case**: https://www.youtube.com/watch?v=yvfxI-R9Ju4 
 
-**Slides**: <a href="./docs/beeHouse-433.pdf">Slides of the project</a>
+**Slides**: <a href="./docs/beeHouse-433_Neri.pdf">Slides of the project</a>
 
 
 ## Architecture
